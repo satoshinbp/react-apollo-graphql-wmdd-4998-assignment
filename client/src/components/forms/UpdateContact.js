@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-
 import { Form, Input, Button } from 'antd'
 import { useMutation } from '@apollo/client'
-import { UPDATE_CONTACT } from '../../queries'
+import { UPDATE_CONTACT } from '../queries/contacts'
 
 const UpdateContact = props => {
   const [id] = useState(props.id)
@@ -13,9 +12,7 @@ const UpdateContact = props => {
   const [form] = Form.useForm()
   const [, forceUpdate] = useState()
 
-  useEffect(() => {
-    forceUpdate()
-  }, [])
+  useEffect(() => forceUpdate(), [])
 
   const updateStateVariable = (variable, value) => {
     props.updateStateVariable(variable, value)
@@ -38,7 +35,7 @@ const UpdateContact = props => {
       variables: {
         id,
         firstName,
-        lastName
+        lastName,
       },
       optimisticResponse: {
         __typename: 'Mutation',
@@ -46,9 +43,9 @@ const UpdateContact = props => {
           __typename: 'Contact',
           id,
           firstName,
-          lastName
-        }
-      }
+          lastName,
+        },
+      },
     })
     props.onButtonClick()
   }
@@ -56,29 +53,23 @@ const UpdateContact = props => {
   return (
     <Form
       form={form}
-      name='update-contact-form'
-      layout='inline'
+      name="update-contact-form"
+      layout="inline"
       onFinish={onFinish}
-      initialValues={{
-        firstName: firstName,
-        lastName: lastName
-      }}
-      size='large'
+      initialValues={{ firstName, lastName }}
+      size="large"
     >
-      <Form.Item
-        name='firstName'
-        rules={[{ required: true, message: 'Please input a first name!' }]}
-      >
+      <Form.Item name="firstName" rules={[{ required: true, message: 'Please input a first name!' }]}>
         <Input onChange={e => updateStateVariable('firstName', e.target.value)} />
       </Form.Item>
-      <Form.Item name='lastName' rules={[{ required: true, message: 'Please input a last name!' }]}>
+      <Form.Item name="lastName" rules={[{ required: true, message: 'Please input a last name!' }]}>
         <Input onChange={e => updateStateVariable('lastName', e.target.value)} />
       </Form.Item>
       <Form.Item shouldUpdate={true}>
         {() => (
           <Button
-            type='primary'
-            htmlType='submit'
+            type="primary"
+            htmlType="submit"
             disabled={
               (!form.isFieldTouched('firstName') && !form.isFieldTouched('lastName')) ||
               form.getFieldsError().filter(({ errors }) => errors.length).length

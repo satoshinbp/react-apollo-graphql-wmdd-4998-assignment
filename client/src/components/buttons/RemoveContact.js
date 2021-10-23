@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client'
 import { filter } from 'lodash'
 
 import { DeleteOutlined } from '@ant-design/icons'
-import { GET_CONTACTS, REMOVE_CONTACT } from '../../queries'
+import { GET_CONTACTS, REMOVE_CONTACT } from '../queries/contacts'
 
 const RemoveContact = ({ id, firstName, lastName }) => {
   const [removeContact] = useMutation(REMOVE_CONTACT, {
@@ -14,10 +14,10 @@ const RemoveContact = ({ id, firstName, lastName }) => {
         data: {
           contacts: filter(contacts, c => {
             return c.id !== removeContact.id
-          })
-        }
+          }),
+        },
       })
-    }
+    },
   })
 
   const handleButtonClick = () => {
@@ -26,7 +26,7 @@ const RemoveContact = ({ id, firstName, lastName }) => {
     if (result) {
       removeContact({
         variables: {
-          id
+          id,
         },
         optimisticResponse: {
           __typename: 'Mutation',
@@ -34,14 +34,14 @@ const RemoveContact = ({ id, firstName, lastName }) => {
             __typename: 'Contact',
             id,
             firstName,
-            lastName
-          }
-        }
+            lastName,
+          },
+        },
       })
     }
   }
 
-  return <DeleteOutlined key='delete' onClick={handleButtonClick} style={{ color: 'red' }} />
+  return <DeleteOutlined key="delete" onClick={handleButtonClick} style={{ color: 'red' }} />
 }
 
 export default RemoveContact

@@ -5,8 +5,8 @@ import contacts from '../mocks/contacts'
 const typeDefs = gql`
   type Contact {
     id: String!
-    firstName: String
-    lastName: String
+    firstName: String!
+    lastName: String!
   }
 
   type Query {
@@ -23,9 +23,7 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    contact(parent, args, context, info) {
-      return find(contacts, { id: args.id })
-    },
+    contact: (parent, args, context, info) => find(contacts, { id: args.id }),
     contacts: () => contacts,
   },
   Mutation: {
@@ -39,22 +37,20 @@ const resolvers = {
       return newContact
     },
     updateContact: (root, args) => {
-      const contact = find(contacts, { id: args.id })
-      if (!contact) {
+      const updatedContact = find(contacts, { id: args.id })
+      if (!updatedContact) {
         throw new Error(`Couldn't find contact with id ${args.id}`)
       }
-      contact.firstName = args.firstName
-      contact.lastName = args.lastName
-      return contact
+      updatedContact.firstName = args.firstName
+      updatedContact.lastName = args.lastName
+      return updatedContact
     },
     removeContact: (root, args) => {
       const removedContact = find(contacts, { id: args.id })
       if (!removedContact) {
         throw new Error(`Couldn't find contact with id ${args.id}`)
       }
-      remove(contacts, c => {
-        return c.id === removedContact.id
-      })
+      remove(contacts, contact => contact.id === removedContact.id)
       return removedContact
     },
   },

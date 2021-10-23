@@ -8,8 +8,8 @@ const typeDefs = gql`
     year: Int!
     model: String!
     make: String!
-    price: Float
-    personId: String
+    price: Float!
+    personId: String!
   }
 
   type Query {
@@ -18,8 +18,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addCar(id: String!, year: String!, model: String!, make: String!, price: String, personId: String): Car
-    updateCar(id: String!, year: String, model: String, make: String, price: String, personId: String): Car
+    addCar(id: String!, year: Int!, make: String!, model: String!, price: Float!, personId: String!): Car
+    updateCar(id: String!, year: Int!, make: String!, model: String!, price: Float!, personId: String!): Car
     removeCar(id: String!): Car
   }
 `
@@ -31,25 +31,36 @@ const resolvers = {
   },
   Mutation: {
     addCar: (root, args) => {
-      const newCar = args
+      const newCar = {
+        id: args.id,
+        year: args.year,
+        make: args.make,
+        model: args.model,
+        price: args.price,
+        personId: args.personId,
+      }
       cars.push(newCar)
       return newCar
     },
     updateCar: (root, args) => {
-      const carToUpdate = find(cars, { id: args.id })
-      if (!carToUpdate) {
+      const updatedCar = find(cars, { id: args.id })
+      if (!updatedCar) {
         throw new Error(`Couldn't find car with id ${args.id}`)
       }
-      const updatedCar = { ...carToUpdate, args }
+      updatedCar.year = args.year
+      updatedCar.make = args.make
+      updatedCar.model = args.model
+      updatedCar.price = args.price
+      updatedCar.personId = args.personId
       return updatedCar
     },
     removeCar: (root, args) => {
-      const carToRemove = find(cars, { id: args.id })
-      if (!carToRemove) {
+      const removedCar = find(cars, { id: args.id })
+      if (!removedCar) {
         throw new Error(`Couldn't find car with id ${args.id}`)
       }
-      remove(cars, car => car.id === carToRemove.id)
-      return carToRemove
+      remove(cars, car => car.id === removedCar.id)
+      return removedCar
     },
   },
 }
