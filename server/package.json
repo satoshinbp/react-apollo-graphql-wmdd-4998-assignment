@@ -2,14 +2,15 @@
   "name": "server",
   "version": "1.0.0",
   "description": "GraphQL Server",
-  "main": "server.js",
-  "author": "Paul Lam",
+  "main": "index.js",
+  "author": "Shinya Sato",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "nodemon ./server.js --exec babel-node -e js"
+    "start": "nodemon ./index.js --exec babel-node -e js"
   },
   "dependencies": {
+    "@graphql-tools/schema": "^8.3.0",
     "apollo-server-core": "^3.3.0",
     "apollo-server-express": "^3.3.0",
     "express": "^4.17.1",
