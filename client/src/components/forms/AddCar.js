@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { Form, Input, InputNumber, Button } from 'antd'
-import { useMutation } from '@apollo/client'
+import { Form, Input, InputNumber, Select, Button } from 'antd'
+import { useQuery, useMutation } from '@apollo/client'
+import { GET_CONTACTS } from '../queries/contacts'
 import { ADD_CAR, GET_CARS } from '../queries/cars'
 
 const AddCar = () => {
   const [form] = Form.useForm()
   const [, forceUpdate] = useState()
   const [addCar] = useMutation(ADD_CAR)
+
+  const { data, loading } = useQuery(GET_CONTACTS)
+  const options =
+    data?.contacts.map(contact => ({
+      label: `${contact.firstName} ${contact.lastName}`,
+      value: contact.id,
+    })) || []
 
   useEffect(() => forceUpdate({}), [])
 
@@ -70,8 +78,8 @@ const AddCar = () => {
       <Form.Item name="price" rules={[{ required: true, message: 'Please input car price! ' }]}>
         <InputNumber placeholder="i.e. 40000" step={0.01} />
       </Form.Item>
-      <Form.Item name="personId" rules={[{ required: true, message: 'Please input car person ID! ' }]}>
-        <Input placeholder="i.e. 1" />
+      <Form.Item name="personId" rules={[{ required: true, message: 'Please select car person! ' }]}>
+        <Select placeholder="i.e. Bill Gates" loading={loading} options={options} />
       </Form.Item>
       <Form.Item shouldUpdate={true}>
         {() => (

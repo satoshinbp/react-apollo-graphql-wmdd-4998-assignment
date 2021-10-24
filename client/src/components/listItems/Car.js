@@ -1,18 +1,10 @@
 import React, { useState } from 'react'
-import { Card } from 'antd'
+import { Card, List } from 'antd'
 import { EditOutlined } from '@ant-design/icons'
 import UpdateCar from '../forms/UpdateCar'
 import RemoveCar from '../buttons/RemoveCar'
 
-const getStyles = () => ({
-  card: {
-    width: '500px',
-  },
-})
-
 const Contact = props => {
-  const styles = getStyles()
-
   const [id] = useState(props.id)
   const [year, setYear] = useState(props.year)
   const [model, setModel] = useState(props.model)
@@ -46,7 +38,7 @@ const Contact = props => {
   const handleButtonClick = () => setEditMode(!editMode)
 
   return (
-    <div>
+    <>
       {editMode ? (
         <UpdateCar
           id={props.id}
@@ -60,16 +52,21 @@ const Contact = props => {
         />
       ) : (
         <Card
-          style={styles.card}
+          type="inner"
           actions={[
             <EditOutlined key="edit" onClick={handleButtonClick} />,
             <RemoveCar id={id} year={year} model={model} make={make} price={price} personId={personId} />,
           ]}
         >
-          {model}
+          <List grid={{ gutter: 20, column: 1 }}>
+            <List.Item>Year: {year}</List.Item>
+            <List.Item>Model: {model}</List.Item>
+            <List.Item>Make: {make}</List.Item>
+            <List.Item>Price: {price}</List.Item>
+          </List>
         </Card>
       )}
-    </div>
+    </>
   )
 }
 

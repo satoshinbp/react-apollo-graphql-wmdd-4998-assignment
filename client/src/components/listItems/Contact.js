@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Card } from 'antd'
 import { EditOutlined } from '@ant-design/icons'
-
-import RemoveContact from '../buttons/RemoveContact'
+import Cars from '../lists/Cars'
 import UpdateContact from '../forms/UpdateContact'
+import RemoveContact from '../buttons/RemoveContact'
 
 const getStyles = () => ({
   card: {
@@ -48,13 +48,14 @@ const Contact = props => {
         />
       ) : (
         <Card
+          title={`${firstName} ${lastName}`}
           style={styles.card}
           actions={[
             <EditOutlined key="edit" onClick={handleButtonClick} />,
             <RemoveContact id={id} firstName={firstName} lastName={lastName} />,
           ]}
         >
-          {firstName} {lastName}
+          <Cars personId={props.id} />
         </Card>
       )}
     </div>

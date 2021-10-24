@@ -1,5 +1,5 @@
 import { gql } from 'apollo-server-express'
-import { find, remove } from 'lodash'
+import { find, remove, filter } from 'lodash'
 import cars from '../mocks/cars'
 
 const typeDefs = gql`
@@ -14,7 +14,7 @@ const typeDefs = gql`
 
   type Query {
     car(id: String!): Car
-    cars: [Car]
+    cars(personId: String!): [Car]
   }
 
   type Mutation {
@@ -27,7 +27,7 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     car: (parent, args, context, info) => find(cars, { id: args.id }),
-    cars: () => cars,
+    cars: (parent, args, context, info) => filter(cars, { personId: args.personId }),
   },
   Mutation: {
     addCar: (root, args) => {

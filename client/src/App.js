@@ -2,7 +2,6 @@ import React from 'react'
 import './App.css'
 import Title from './components/layout/Title'
 import Contacts from './components/lists/Contacts'
-import Cars from './components/lists/Cars'
 import AddContact from './components/forms/AddContact'
 import AddCar from './components/forms/AddCar'
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
@@ -17,9 +16,8 @@ const App = () => (
     <div className="App">
       <Title />
       <AddContact />
-      <Contacts />
       <AddCar />
-      <Cars />
+      <Contacts />
     </div>
   </ApolloProvider>
 )
