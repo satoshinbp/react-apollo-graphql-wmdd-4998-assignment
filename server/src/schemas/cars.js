@@ -21,6 +21,7 @@ const typeDefs = gql`
     addCar(id: String!, year: Int!, make: String!, model: String!, price: Float!, personId: String!): Car
     updateCar(id: String!, year: Int!, make: String!, model: String!, price: Float!, personId: String!): Car
     removeCar(id: String!): Car
+    removeCars(personId: String!): Car
   }
 `
 
@@ -61,6 +62,15 @@ const resolvers = {
       }
       remove(cars, car => car.id === removedCar.id)
       return removedCar
+    },
+    removeCars: (root, args) => {
+      const removedCars = filter(cars, { personId: args.personId })
+      if (!removedCars) {
+        throw new Error(`Couldn't find car with person id ${args.personId}`)
+      }
+      const removedCarsIds = removedCars.map(removedCar => removedCar.id)
+      remove(cars, car => removedCarsIds.includes(car.id))
+      return removedCars
     },
   },
 }

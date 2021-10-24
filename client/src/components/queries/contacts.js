@@ -37,5 +37,14 @@ export const REMOVE_CONTACT = gql`
       firstName
       lastName
     }
+
+    removeCars(personId: $id) {
+      id
+      year
+      make
+      model
+      price
+      personId
+    }
   }
 `

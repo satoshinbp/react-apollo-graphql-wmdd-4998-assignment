@@ -1,7 +1,6 @@
 import React from 'react'
 import { useMutation } from '@apollo/client'
 import { filter } from 'lodash'
-
 import { DeleteOutlined } from '@ant-design/icons'
 import { GET_CONTACTS, REMOVE_CONTACT } from '../queries/contacts'
 
@@ -11,23 +10,17 @@ const RemoveContact = ({ id, firstName, lastName }) => {
       const { contacts } = cache.readQuery({ query: GET_CONTACTS })
       cache.writeQuery({
         query: GET_CONTACTS,
-        data: {
-          contacts: filter(contacts, c => {
-            return c.id !== removeContact.id
-          }),
-        },
+        data: { contacts: filter(contacts, contact => contact.id !== removeContact.id) },
       })
     },
   })
 
   const handleButtonClick = () => {
-    let result = window.confirm('Are you sure you want to delete this contact?')
+    const result = window.confirm('Are you sure you want to delete this contact?')
 
     if (result) {
       removeContact({
-        variables: {
-          id,
-        },
+        variables: { id },
         optimisticResponse: {
           __typename: 'Mutation',
           removeContact: {
@@ -35,6 +28,10 @@ const RemoveContact = ({ id, firstName, lastName }) => {
             id,
             firstName,
             lastName,
+          },
+          removeCars: {
+            __typename: 'Car',
+            personId: id,
           },
         },
       })
