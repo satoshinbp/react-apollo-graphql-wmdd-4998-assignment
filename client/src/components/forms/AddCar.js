@@ -7,7 +7,7 @@ import { ADD_CAR, GET_CARS_BY_PERSON_ID } from '../queries/cars'
 
 const AddCar = () => {
   const [form] = Form.useForm()
-  const [, forceUpdate] = useState()
+
   const [addCar] = useMutation(ADD_CAR)
 
   const { data, loading } = useQuery(GET_CONTACTS)
@@ -17,6 +17,7 @@ const AddCar = () => {
       value: contact.id,
     })) || []
 
+  const [, forceUpdate] = useState()
   useEffect(() => forceUpdate({}), [])
 
   const onFinish = values => {

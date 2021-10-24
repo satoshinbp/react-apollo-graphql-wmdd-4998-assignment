@@ -6,9 +6,10 @@ import { ADD_CONTACT, GET_CONTACTS } from '../queries/contacts'
 
 const AddContact = () => {
   const [form] = Form.useForm()
-  const [, forceUpdate] = useState()
+
   const [addContact] = useMutation(ADD_CONTACT)
 
+  const [, forceUpdate] = useState()
   useEffect(() => forceUpdate({}), [])
 
   const onFinish = values => {

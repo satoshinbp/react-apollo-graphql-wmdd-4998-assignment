@@ -20,13 +20,11 @@ const RemoveCar = ({ id, year, make, model, price, personId }) => {
   })
 
   const handleButtonClick = () => {
-    let result = window.confirm('Are you sure you want to delete this car?')
+    const result = window.confirm('Are you sure you want to delete this car?')
 
     if (result) {
       removeCar({
-        variables: {
-          id,
-        },
+        variables: { id },
         optimisticResponse: {
           __typename: 'Mutation',
           removeCar: {

@@ -3,7 +3,7 @@ import { filter } from 'lodash'
 import { Form, Input, InputNumber, Select, Button } from 'antd'
 import { useQuery, useMutation } from '@apollo/client'
 import { GET_CONTACTS } from '../queries/contacts'
-import { GET_CARS, GET_CARS_BY_PERSON_ID, UPDATE_CAR } from '../queries/cars'
+import { GET_CARS_BY_PERSON_ID, UPDATE_CAR } from '../queries/cars'
 
 const UpdateCar = props => {
   const [id] = useState(props.id)
