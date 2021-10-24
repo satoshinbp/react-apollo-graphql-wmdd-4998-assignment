@@ -1,7 +1,3 @@
-When a person is deleted, all cars that they owned should also be deleted.
-
-All CRUD actions must be correctly reflected on the server.
-
 For the show page, please write a separate query that queries for a particular person and all of their cars.
 You can call this query whatever you wish but "personWithcars" would make the most sense.
 (do not pass in all the props in to the show page on the client side,

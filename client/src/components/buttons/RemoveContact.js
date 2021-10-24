@@ -31,6 +31,11 @@ const RemoveContact = ({ id, firstName, lastName }) => {
           },
           removeCars: {
             __typename: 'Car',
+            id: 'temp-id',
+            year: 'temp-year',
+            make: 'temp-make',
+            model: 'temp-model',
+            price: 'temp-price',
             personId: id,
           },
         },
