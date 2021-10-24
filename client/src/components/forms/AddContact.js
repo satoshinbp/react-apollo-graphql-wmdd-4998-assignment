@@ -30,9 +30,9 @@ const AddContact = () => {
           lastName,
         },
       },
-      update: (proxy, { data: { addContact } }) => {
-        const data = proxy.readQuery({ query: GET_CONTACTS })
-        proxy.writeQuery({
+      update: (cache, { data: { addContact } }) => {
+        const data = cache.readQuery({ query: GET_CONTACTS })
+        cache.writeQuery({
           query: GET_CONTACTS,
           data: {
             ...data,
@@ -50,7 +50,7 @@ const AddContact = () => {
       layout="inline"
       onFinish={onFinish}
       size="large"
-      style={{ marginBottom: '40px' }}
+      style={{ marginBottom: '24px' }}
     >
       <Form.Item name="firstName" rules={[{ required: true, message: 'Please input your first name! ' }]}>
         <Input placeholder="i.e. John" />

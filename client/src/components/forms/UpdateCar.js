@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { filter } from 'lodash'
 import { Form, Input, InputNumber, Select, Button } from 'antd'
 import { useQuery, useMutation } from '@apollo/client'
 import { GET_CONTACTS } from '../queries/contacts'
-import { UPDATE_CAR } from '../queries/cars'
+import { GET_CARS, GET_CARS_BY_PERSON_ID, UPDATE_CAR } from '../queries/cars'
 
 const UpdateCar = props => {
   const [id] = useState(props.id)
@@ -73,6 +74,30 @@ const UpdateCar = props => {
           personId,
         },
       },
+      update: (cache, { data: { updateCar } }) => {
+        if (personId === props.personId) return
+        const { cars } = cache.readQuery({
+          query: GET_CARS_BY_PERSON_ID,
+          variables: { personId: props.personId },
+        })
+        cache.writeQuery({
+          query: GET_CARS_BY_PERSON_ID,
+          data: { cars: filter(cars, car => car.id !== updateCar.id) },
+          variables: { personId: props.personId },
+        })
+        const data = cache.readQuery({
+          query: GET_CARS_BY_PERSON_ID,
+          variables: { personId },
+        })
+        cache.writeQuery({
+          query: GET_CARS_BY_PERSON_ID,
+          data: {
+            ...data,
+            cars: [...data.cars, updateCar],
+          },
+          variables: { personId },
+        })
+      },
     })
     props.onButtonClick()
   }
@@ -87,7 +112,7 @@ const UpdateCar = props => {
       size="large"
     >
       <Form.Item name="year" rules={[{ required: true, message: 'Please input a car year!' }]}>
-        <InputNumber onChange={value => updateStateVariable('year', value)} />
+        <InputNumber onChange={value => updateStateVariable('year', value)} min={1900} max={2021} />
       </Form.Item>
       <Form.Item name="make" rules={[{ required: true, message: 'Please input a car make!' }]}>
         <Input onChange={e => updateStateVariable('make', e.target.value)} />
@@ -96,7 +121,13 @@ const UpdateCar = props => {
         <Input onChange={e => updateStateVariable('model', e.target.value)} />
       </Form.Item>
       <Form.Item name="price" rules={[{ required: true, message: 'Please input a car price!' }]}>
-        <InputNumber onChange={value => updateStateVariable('price', value)} step={0.01} />
+        <InputNumber
+          onChange={value => updateStateVariable('price', value)}
+          min={0}
+          step={0.01}
+          formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          parser={value => value.replace(/\$\s?|(,*)/g, '')}
+        />
       </Form.Item>
       <Form.Item name="personId" rules={[{ required: true, message: 'Please select car person! ' }]}>
         <Select placeholder="i.e. Bill Gates" loading={loading} options={options} />

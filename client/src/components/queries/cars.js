@@ -1,7 +1,18 @@
 import { gql } from '@apollo/client'
 
 export const GET_CARS = gql`
-  query GetCars($personId: String!) {
+  query GetCars {
+    cars {
+      id
+      year
+      make
+      model
+      price
+    }
+  }
+`
+export const GET_CARS_BY_PERSON_ID = gql`
+  query GetCarsByPersonId($personId: String!) {
     cars(personId: $personId) {
       id
       year

@@ -14,7 +14,7 @@ const typeDefs = gql`
 
   type Query {
     car(id: String!): Car
-    cars(personId: String!): [Car]
+    cars(personId: String): [Car]
   }
 
   type Mutation {
@@ -27,7 +27,7 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     car: (parent, args, context, info) => find(cars, { id: args.id }),
-    cars: (parent, args, context, info) => filter(cars, { personId: args.personId }),
+    cars: (parent, args, context, info) => (args.personId ? filter(cars, { personId: args.personId }) : cars),
   },
   Mutation: {
     addCar: (root, args) => {

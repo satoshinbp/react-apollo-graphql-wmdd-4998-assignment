@@ -5,15 +5,7 @@ import Cars from '../lists/Cars'
 import UpdateContact from '../forms/UpdateContact'
 import RemoveContact from '../buttons/RemoveContact'
 
-const getStyles = () => ({
-  card: {
-    width: '500px',
-  },
-})
-
 const Contact = props => {
-  const styles = getStyles()
-
   const [id] = useState(props.id)
   const [firstName, setFirstName] = useState(props.firstName)
   const [lastName, setLastName] = useState(props.lastName)
@@ -32,12 +24,10 @@ const Contact = props => {
     }
   }
 
-  const handleButtonClick = () => {
-    setEditMode(!editMode)
-  }
+  const handleButtonClick = () => setEditMode(!editMode)
 
   return (
-    <div>
+    <>
       {editMode ? (
         <UpdateContact
           id={props.id}
@@ -49,7 +39,7 @@ const Contact = props => {
       ) : (
         <Card
           title={`${firstName} ${lastName}`}
-          style={styles.card}
+          style={{ width: '500px' }}
           actions={[
             <EditOutlined key="edit" onClick={handleButtonClick} />,
             <RemoveContact id={id} firstName={firstName} lastName={lastName} />,
@@ -58,7 +48,7 @@ const Contact = props => {
           <Cars personId={props.id} />
         </Card>
       )}
-    </div>
+    </>
   )
 }
 

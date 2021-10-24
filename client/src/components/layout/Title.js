@@ -1,17 +1,6 @@
 import React from 'react'
+import { Typography } from 'antd'
 
-const getStyles = () => ({
-  title: {
-    fontSize: 50,
-    padding: '15px',
-    marginBottom: '50px'
-  }
-})
-
-const Title = () => {
-  const styles = getStyles()
-
-  return <h1 style={styles.title}>It's all about who you know!</h1>
-}
+const Title = () => <Typography.Title>It's all about who you know!</Typography.Title>
 
 export default Title

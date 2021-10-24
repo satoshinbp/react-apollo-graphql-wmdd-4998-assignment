@@ -62,7 +62,7 @@ const Contact = props => {
             <List.Item>Year: {year}</List.Item>
             <List.Item>Model: {model}</List.Item>
             <List.Item>Make: {make}</List.Item>
-            <List.Item>Price: {price}</List.Item>
+            <List.Item>Price: ${price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</List.Item>
           </List>
         </Card>
       )}
