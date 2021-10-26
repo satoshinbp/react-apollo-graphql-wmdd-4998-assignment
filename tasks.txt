@@ -1,6 +1,0 @@
-For the show page, please write a separate query that queries for a particular person and all of their cars.
-You can call this query whatever you wish but "personWithcars" would make the most sense.
-(do not pass in all the props in to the show page on the client side,
-pass in the client ID and have the show page call your "personWithcars" query.
-It should go from the home path "/" to a show page path like "/people/1" if you are viewing a person with an ID of 1.
-There should be a "go back home" button that takes the user back to the home page.
