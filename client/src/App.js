@@ -1,9 +1,9 @@
 import React from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import './App.css'
 import Title from './components/layout/Title'
-import Contacts from './components/lists/Contacts'
-import AddContact from './components/forms/AddContact'
-import AddCar from './components/forms/AddCar'
+import Home from './pages/Home'
+import Person from './pages/Person'
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
 
 const client = new ApolloClient({
@@ -15,9 +15,12 @@ const App = () => (
   <ApolloProvider client={client}>
     <div className="App">
       <Title />
-      <AddContact />
-      <AddCar />
-      <Contacts />
+      <Router>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/:id" component={Person} />
+        </Switch>
+      </Router>
     </div>
   </ApolloProvider>
 )
