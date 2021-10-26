@@ -2,7 +2,7 @@ import React from 'react'
 import { useMutation } from '@apollo/client'
 import { filter } from 'lodash'
 import { DeleteOutlined } from '@ant-design/icons'
-import { GET_CONTACTS, REMOVE_CONTACT } from '../queries/contacts'
+import { GET_CONTACTS, REMOVE_CONTACT } from '../../queries/contacts'
 
 const RemoveContact = ({ id, firstName, lastName }) => {
   const [removeContact] = useMutation(REMOVE_CONTACT, {

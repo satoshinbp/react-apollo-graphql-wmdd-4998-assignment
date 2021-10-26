@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { Form, Input, Button } from 'antd'
 import { useMutation } from '@apollo/client'
-import { ADD_CONTACT, GET_CONTACTS } from '../queries/contacts'
+import { ADD_CONTACT, GET_CONTACTS } from '../../queries/contacts'
 
 const AddContact = () => {
   const [form] = Form.useForm()

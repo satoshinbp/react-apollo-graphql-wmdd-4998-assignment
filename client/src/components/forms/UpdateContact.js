@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Form, Input, Button } from 'antd'
 import { useMutation } from '@apollo/client'
-import { UPDATE_CONTACT } from '../queries/contacts'
+import { UPDATE_CONTACT } from '../../queries/contacts'
 
 const UpdateContact = props => {
   const [id] = useState(props.id)

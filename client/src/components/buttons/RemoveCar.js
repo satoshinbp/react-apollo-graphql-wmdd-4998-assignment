@@ -2,7 +2,7 @@ import React from 'react'
 import { filter } from 'lodash'
 import { DeleteOutlined } from '@ant-design/icons'
 import { useMutation } from '@apollo/client'
-import { GET_CARS_BY_PERSON_ID, REMOVE_CAR } from '../queries/cars'
+import { GET_CARS_BY_PERSON_ID, REMOVE_CAR } from '../../queries/cars'
 
 const RemoveCar = ({ id, year, make, model, price, personId }) => {
   const [removeCar] = useMutation(REMOVE_CAR, {

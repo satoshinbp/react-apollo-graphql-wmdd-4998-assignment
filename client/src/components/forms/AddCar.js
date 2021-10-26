@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { Form, Input, InputNumber, Select, Button } from 'antd'
 import { useQuery, useMutation } from '@apollo/client'
-import { GET_CONTACTS } from '../queries/contacts'
-import { ADD_CAR, GET_CARS_BY_PERSON_ID } from '../queries/cars'
+import { GET_CONTACTS } from '../../queries/contacts'
+import { ADD_CAR, GET_CARS_BY_PERSON_ID } from '../../queries/cars'
 
 const AddCar = () => {
   const [form] = Form.useForm()

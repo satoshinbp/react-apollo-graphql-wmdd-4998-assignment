@@ -2,7 +2,7 @@ import React from 'react'
 import { useQuery } from '@apollo/client'
 import { List } from 'antd'
 import Contact from '../listItems/Contact'
-import { GET_CONTACTS } from '../queries/contacts'
+import { GET_CONTACTS } from '../../queries/contacts'
 
 const Contacts = () => {
   const { data, loading, error } = useQuery(GET_CONTACTS)
