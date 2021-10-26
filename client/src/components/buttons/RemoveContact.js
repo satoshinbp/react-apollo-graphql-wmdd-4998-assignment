@@ -1,7 +1,7 @@
 import React from 'react'
-import { useMutation } from '@apollo/client'
 import { filter } from 'lodash'
 import { DeleteOutlined } from '@ant-design/icons'
+import { useMutation } from '@apollo/client'
 import { GET_CONTACTS, REMOVE_CONTACT } from '../../queries/contacts'
 
 const RemoveContact = ({ id, firstName, lastName }) => {

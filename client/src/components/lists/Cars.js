@@ -2,10 +2,10 @@ import React from 'react'
 import { List } from 'antd'
 import Car from '../listItems/Car'
 import { useQuery } from '@apollo/client'
-import { GET_CARS_BY_PERSON_ID } from '../../queries/cars'
+import { GET_CARS } from '../../queries/cars'
 
 const Cars = props => {
-  const { data, loading, error } = useQuery(GET_CARS_BY_PERSON_ID, { variables: { personId: props.personId } })
+  const { data, loading, error } = useQuery(GET_CARS, { variables: { personId: props.personId } })
 
   if (loading) return 'Loading...'
   if (error) return `Error! ${error.message}`

@@ -3,7 +3,7 @@ import { filter } from 'lodash'
 import { Form, Input, InputNumber, Select, Button } from 'antd'
 import { useQuery, useMutation } from '@apollo/client'
 import { GET_CONTACTS } from '../../queries/contacts'
-import { GET_CARS_BY_PERSON_ID, UPDATE_CAR } from '../../queries/cars'
+import { GET_CARS, UPDATE_CAR } from '../../queries/cars'
 
 const UpdateCar = props => {
   const [id] = useState(props.id)
@@ -77,20 +77,20 @@ const UpdateCar = props => {
       update: (cache, { data: { updateCar } }) => {
         if (personId === props.personId) return
         const { cars } = cache.readQuery({
-          query: GET_CARS_BY_PERSON_ID,
+          query: GET_CARS,
           variables: { personId: props.personId },
         })
         cache.writeQuery({
-          query: GET_CARS_BY_PERSON_ID,
+          query: GET_CARS,
           data: { cars: filter(cars, car => car.id !== updateCar.id) },
           variables: { personId: props.personId },
         })
         const data = cache.readQuery({
-          query: GET_CARS_BY_PERSON_ID,
+          query: GET_CARS,
           variables: { personId },
         })
         cache.writeQuery({
-          query: GET_CARS_BY_PERSON_ID,
+          query: GET_CARS,
           data: {
             ...data,
             cars: [...data.cars, updateCar],

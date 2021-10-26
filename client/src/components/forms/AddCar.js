@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { Form, Input, InputNumber, Select, Button } from 'antd'
 import { useQuery, useMutation } from '@apollo/client'
 import { GET_CONTACTS } from '../../queries/contacts'
-import { ADD_CAR, GET_CARS_BY_PERSON_ID } from '../../queries/cars'
+import { ADD_CAR, GET_CARS } from '../../queries/cars'
 
 const AddCar = () => {
   const [form] = Form.useForm()
@@ -47,11 +47,11 @@ const AddCar = () => {
       },
       update: (cache, { data: { addCar } }) => {
         const data = cache.readQuery({
-          query: GET_CARS_BY_PERSON_ID,
+          query: GET_CARS,
           variables: { personId },
         })
         cache.writeQuery({
-          query: GET_CARS_BY_PERSON_ID,
+          query: GET_CARS,
           data: {
             ...data,
             cars: [...data.cars, addCar],

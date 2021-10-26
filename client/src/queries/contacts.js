@@ -10,6 +10,25 @@ export const GET_CONTACTS = gql`
   }
 `
 
+export const GET_CONTACT_WITH_CARS = gql`
+  query GetContactWithCars($id: String!) {
+    contact(id: $id) {
+      id
+      firstName
+      lastName
+    }
+
+    cars(personId: $id) {
+      id
+      year
+      make
+      model
+      price
+      personId
+    }
+  }
+`
+
 export const ADD_CONTACT = gql`
   mutation AddContact($id: String!, $firstName: String!, $lastName: String!) {
     addContact(id: $id, firstName: $firstName, lastName: $lastName) {
